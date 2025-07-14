@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import UrlSubmissionForm from '../components/UrlSubmissionForm';
+import ResultsTable from '../components/ResultsTable';
 import { submitUrl, fetchUrls } from '../services/api';
 
 interface UrlData {
   id: string;
   url: string;
+  title: string;
+  htmlVersion: string;
+  internalLinks: number;
+  externalLinks: number;
   status: string;
-  // Add other relevant fields as needed
 }
 
 const DashboardPage: React.FC = () => {
@@ -30,13 +34,7 @@ const DashboardPage: React.FC = () => {
     <div>
       <h1>Website Analyzer Dashboard</h1>
       <UrlSubmissionForm onSubmit={handleSubmit} />
-      <ul>
-        {urls.map(item => (
-          <li key={item.id}>
-            {item.url} — {item.status}
-          </li>
-        ))}
-      </ul>
+      <ResultsTable data={urls} />
     </div>
   );
 };
