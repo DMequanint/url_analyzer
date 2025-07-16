@@ -1,0 +1,178 @@
+/* Table wrapper: horizontal scroll on small screens */
+.table-wrap {
+  overflow-x: auto;
+}
+
+/* Table base styling */
+.results-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+  min-width: 900px;
+}
+
+/* Table headers and cells */
+.results-table th,
+.results-table td {
+  border-bottom: 1px solid #eaeaea;
+  padding: 10px;
+  text-align: left;
+}
+
+/* Table header row */
+.results-table thead {
+  background-color: #f4f7fb;
+  font-weight: 600;
+}
+
+/* Row hover effect */
+.results-table tr:hover {
+  background-color: #f9fbff;
+}
+
+/* Checkbox style */
+input[type="checkbox"] {
+  cursor: pointer;
+}
+
+/* ⬇️ Bulk Action Buttons Bar */
+.bulk-actions {
+  margin: 0.5em 0 1em 0;
+  display: flex;
+  gap: 1em;
+}
+
+/* Bulk action buttons: styling + colors */
+.bulk-actions button {
+  border: none;
+  border-radius: 4px;
+  padding: 6px 16px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+/* Re-run selected — blue button */
+.bulk-actions button:first-child {
+  background-color: #2563eb;
+  color: white;
+}
+.bulk-actions button:first-child:hover {
+  background-color: #1e40af;
+}
+
+/* Delete selected — red button */
+.bulk-actions button:last-child {
+  background-color: #ef4444;
+  color: white;
+}
+.bulk-actions button:last-child:hover {
+  background-color: #dc2626;
+}
+
+/* ⬇️ Action buttons per row */
+.action-buttons {
+  display: flex;
+  flex-direction: row;  /* ✅ Prevent button wrapping */
+  flex-wrap: nowrap;
+  gap: 6px;
+}
+
+/* Base button */
+.action-buttons button {
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s ease;
+}
+
+/* Re-run / Start — primary blue */
+.action-buttons button:first-child {
+  background-color: #2563eb;
+  color: white;
+}
+.action-buttons button:first-child:hover {
+  background-color: #1d4ed8;
+}
+
+/* Retry — yellow */
+.action-buttons button:nth-child(2) {
+  background-color: #facc15;
+  color: #111;
+}
+.action-buttons button:nth-child(2):hover {
+  background-color: #fbbf24;
+}
+
+/* View — slate/dark gray */
+.action-buttons button:last-child {
+  background-color: #334155;
+  color: white;
+}
+.action-buttons button:last-child:hover {
+  background-color: #1e293b;
+}
+
+/* Focus outline for accessibility */
+.bulk-actions button:focus,
+.action-buttons button:focus {
+  outline: 2px solid #cbd5e1;
+  outline-offset: 2px;
+}
+
+/* ⬇️ Mobile Responsiveness */
+@media (max-width: 768px) {
+  .results-table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
+    display: block;
+  }
+
+  .results-table thead {
+    display: none;
+  }
+
+  .results-table tr {
+    margin-bottom: 1em;
+    background: #fff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    padding: 0.6em;
+    border-radius: 6px;
+  }
+
+  .results-table td {
+    padding: 0.5em 0;
+    position: relative;
+    padding-left: 50%;
+    text-align: left;
+  }
+
+  .results-table td::before {
+    position: absolute;
+    top: 0;
+    left: 8px;
+    width: 45%;
+    font-weight: bold;
+    color: #333;
+    content: attr(data-label);
+  }
+
+  .action-buttons {
+    flex-wrap: wrap; /* Allow buttons to stack on mobile */
+  }
+
+  .action-buttons button {
+    width: 100%;
+    margin-bottom: 0.4em;
+    text-align: center;
+  }
+}
+

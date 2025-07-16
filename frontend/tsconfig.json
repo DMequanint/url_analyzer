@@ -1,0 +1,42 @@
+{
+  "compilerOptions": {
+    /* Target modern ES6+ features such as let/const, async/await, etc. */
+    "target": "es2015",
+
+    /* Enables for-of loops and spread operators to work with Map, Set */
+    "downlevelIteration": true,
+
+    /* Use React and full browser built-ins */
+    "lib": ["dom", "dom.iterable", "esnext"],
+
+    /* Allow JavaScript files alongside TypeScript (for gradual migration or interop) */
+    "allowJs": true,
+
+    /* Skip type checks of libraries in node_modules to speed up compile time */
+    "skipLibCheck": true,
+
+    /* Allow mixing CommonJS and ES6 modules */
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+
+    /* Enforce strict typing and prevent switch fallthrough errors */
+    "strict": true,
+    "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true,
+
+    /* Enable ESNext modules and Node.js-style resolution */
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+
+    /* Prevent emitting JS files — useful for type-check–only builds */
+    "noEmit": true,
+
+    /* Support React 17+ JSX transform (no need for React in scope) */
+    "jsx": "react-jsx"
+  },
+
+  /* Include all TypeScript and JavaScript modules in the `src/` folder */
+  "include": ["src"]
+}
