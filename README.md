@@ -34,8 +34,10 @@ Built with:
 ---
 
 ## Project Structure
+## Project Structure
+
+```
 url-analyzer/
-│
 ├── backend/
 │   ├── main.go
 │   ├── models/
@@ -53,9 +55,36 @@ url-analyzer/
 │
 ├── .env.example
 └── README.md
+```
+```
 
----
+**Instructions:**  
+- Do not add `│` at the start of every line. Let the box drawing and indentation naturally show the hierarchy.
+- Make sure you start and end with three backticks (\```)—not quotes or other symbols.
+- Set the language identifier to `plaintext` or leave it blank right after the opening backticks.
 
+**What you should paste:**
+
+```
+url-analyzer/
+├── backend/
+│   ├── main.go
+│   ├── models/
+│   ├── controllers/
+│   ├── services/
+│   ├── repositories/
+│   └── websockethub/
+│
+├── frontend/
+│   └── src/
+│       ├── components/
+│       ├── pages/
+│       ├── types/
+│       └── App.tsx
+│
+├── .env.example
+└── README.md
+```
 ## Getting Started
 
 ### Prerequisites
