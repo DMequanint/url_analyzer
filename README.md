@@ -35,21 +35,24 @@ Built with:
 
 ## Project Structure
 url-analyzer/
+│
 ├── backend/
-│ ├── main.go
-│ ├── models/
-│ ├── controllers/
-│ ├── services/
-│ ├── repositories/
-│ └── websockethub/
+│   ├── main.go
+│   ├── models/
+│   ├── controllers/
+│   ├── services/
+│   ├── repositories/
+│   └── websockethub/
+│
 ├── frontend/
-│ ├── src/
-│ │ ├── components/
-│ │ ├── pages/
-│ │ ├── types/
-│ │ └── App.tsx
+│   └── src/
+│       ├── components/
+│       ├── pages/
+│       ├── types/
+│       └── App.tsx
+│
 ├── .env.example
-├── README.md
+└── README.md
 
 ---
 
