@@ -106,4 +106,74 @@ npm start
 ## Testing
 
 ### Backend (Go)
+cd backend
+go test ./...
+
+### Frontend (React)
+
+cd frontend
+npm test
+
+---
+
+## API Overview
+
+| Endpoint                        | Method | Description                    |
+|--------------------------------|--------|--------------------------------|
+| `/api/urls`                    | GET    | Get all URLs                   |
+| `/api/urls/:id`                | GET    | Get specific URL data          |
+| `/api/urls`                    | POST   | Submit new URL for analysis    |
+| `/api/urls/:id/analyze`        | POST   | Queue URL for re-analysis      |
+| `/api/urls/:id/retry`          | POST   | Retry failed analysis          |
+| `/api/urls/:id`                | DELETE | Delete a URL and its results   |
+| `/ws`                          | GET    | WebSocket endpoint for updates |
+
+---
+
+## Troubleshooting
+
+| Problem                            | Solution |
+|-----------------------------------|----------|
+| Cannot connect to MySQL           | Ensure MySQL is running and credentials match `.env` |
+| React API requests fail (CORS)    | Confirm backend is running and `REACT_APP_API_URL` is correct |
+| WebSocket not connecting          | Ensure backend is running on correct port and `/ws` is accessible |
+| Form submission fails             | Confirm URL format is valid and not a duplicate |
+| Analysis never completes          | Check if worker is running and `ANALYZE_WORKER_COUNT` is greater than 0 |
+
+---
+
+## Production Build
+
+### Frontend
+
+cd frontend
+npm run build
+
+---
+
+Serve the static content from a CDN or static file server.
+
+### Backend
+
+Use `go build` to compile and deploy the backend binary.
+
+
+---
+
+## Future Improvements
+
+- Add user login and authentication (JWT or OAuth)
+- Add support for PDF and CSV exports
+- Detect more metadata (Open Graph, meta tags, etc.)
+- Add unit tests for HTML parsing
+- Dockerize with `docker-compose.yml` and `Dockerfile`
+
+---
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
 
