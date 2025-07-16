@@ -34,6 +34,8 @@ Built with:
 ---
 
 ## Project Structure
+
+```
 url-analyzer/
 ├── backend/
 │   ├── main.go
@@ -52,8 +54,9 @@ url-analyzer/
 │
 ├── .env.example
 └── README.md
-
 ```
+```
+
 ## Getting Started
 
 ### Prerequisites
