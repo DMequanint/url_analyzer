@@ -141,9 +141,9 @@ const ResultsTable: React.FC<ResultsTableProps> = ({
             </th>
             <th onClick={() => handleSort("htmlVersion")}>HTML Version</th>
             <th>Headings</th>
-            <th onClick={() => handleSort("internalLinks")}>Internal</th>
-            <th onClick={() => handleSort("externalLinks")}>External</th>
-            <th onClick={() => handleSort("inaccessibleLinks")}>Broken</th>
+            <th onClick={() => handleSort("internalLinks")}>#Internal</th>
+            <th onClick={() => handleSort("externalLinks")}>#External</th>
+            <th onClick={() => handleSort("inaccessibleLinks")}>#Broken</th>
             <th onClick={() => handleSort("hasLoginForm")}>Login Form</th>
             <th onClick={() => handleSort("status")}>Status</th>
             <th>URL</th>
