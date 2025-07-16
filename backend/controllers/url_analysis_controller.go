@@ -15,7 +15,6 @@ import (
 GetAllUrls handles GET /api/urls.
 
 Returns a list of all URLs ordered by creation time (descending).
-On database failure, returns 500 Internal Server Error.
 */
 func GetAllUrls(c *gin.Context) {
 	var urls []models.URL
@@ -62,7 +61,7 @@ func CreateUrl(c *gin.Context) {
 
 	newURL := models.URL{
 		URL:           req.URL,
-		NormalizedURL: req.URL, // Normalization can be added here
+		NormalizedURL: req.URL, // You can normalize before saving
 		Status:        "queued",
 	}
 
@@ -95,7 +94,7 @@ func AnalyzeUrlByID(c *gin.Context) {
 		return
 	}
 
-	// Reset analysis properties
+	// Reset analysis fields before reprocessing
 	url.Status = "queued"
 	url.ErrorReason = ""
 	url.ErrorCode = 0
@@ -105,13 +104,19 @@ func AnalyzeUrlByID(c *gin.Context) {
 	url.ExternalLinksCount = 0
 	url.InaccessibleLinksCount = 0
 	url.HasLoginForm = false
+	url.H1 = 0
+	url.H2 = 0
+	url.H3 = 0
+	url.H4 = 0
+	url.H5 = 0
+	url.H6 = 0
 
 	if err := config.DB.Save(&url).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to queue analysis"})
 		return
 	}
 
-	// Notify clients of the update
+	// Notify live clients that a re-analysis was triggered
 	websockethub.BroadcastStatusUpdate(map[string]interface{}{
 		"id":     url.ID,
 		"status": url.Status,

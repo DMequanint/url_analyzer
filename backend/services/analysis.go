@@ -80,8 +80,8 @@ func AnalyzeURL(u *models.URL) error {
 				}
 
 			case "title":
-				if n.FirstChild != nil {
-					u.PageTitle = n.FirstChild.Data
+				if n.FirstChild != nil && strings.TrimSpace(u.PageTitle) == "" {
+					u.PageTitle = strings.TrimSpace(n.FirstChild.Data)
 				}
 			}
 		}
@@ -100,7 +100,14 @@ func AnalyzeURL(u *models.URL) error {
 	u.InaccessibleLinksCount = inaccessible
 	u.HasLoginForm = hasLogin
 
-	// Note: Heading totals can also be stored in the model if needed
+	// ✅ Assign heading counts to model fields
+	u.H1 = headings["h1"]
+	u.H2 = headings["h2"]
+	u.H3 = headings["h3"]
+	u.H4 = headings["h4"]
+	u.H5 = headings["h5"]
+	u.H6 = headings["h6"]
+
 	return nil
 }
 
