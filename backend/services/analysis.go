@@ -27,6 +27,7 @@ The function sends an HTTP GET request to the target URL, and if successful:
 Returns an error if the URL is unreachable, HTTP fails, or parsing fails.
 */
 func AnalyzeURL(u *models.URL) error {
+	// Step 1: HTTP GET request
 	resp, err := http.Get(u.URL)
 	if err != nil {
 		return err
@@ -37,12 +38,13 @@ func AnalyzeURL(u *models.URL) error {
 		return errors.New("unreachable: " + resp.Status)
 	}
 
+	// Step 2: Parse HTML
 	doc, err := html.Parse(resp.Body)
 	if err != nil {
 		return err
 	}
 
-	/* Initialize counters and flags used during tree traversal */
+	// Step 3: Initialize counters
 	headings := map[string]int{}
 	linkCount := 0
 	internal := 0
@@ -50,31 +52,33 @@ func AnalyzeURL(u *models.URL) error {
 	inaccessible := 0
 	hasLogin := false
 
-	/* Recursive function that traverses the parsed HTML DOM tree
-	   and collects metadata from relevant tags */
+	// Step 4: Recursive DOM traversal
 	var f func(*html.Node)
 	f = func(n *html.Node) {
 		if n.Type == html.ElementNode {
-			switch strings.ToLower(n.Data) {
+			tag := strings.ToLower(n.Data) // normalize tag name here
+
+			switch tag {
 			case "h1", "h2", "h3", "h4", "h5", "h6":
-				headings[n.Data]++
+				headings[tag]++ // ✅ NOW SAFE — normalized to lowercase
 
 			case "a":
 				for _, attr := range n.Attr {
 					if attr.Key == "href" {
 						linkCount++
-						if strings.HasPrefix(attr.Val, "http") && !strings.HasPrefix(attr.Val, u.URL) {
+						href := attr.Val
+						if strings.HasPrefix(href, "http") && !strings.HasPrefix(href, u.URL) {
 							external++
 						} else {
 							internal++
 						}
-						// (Not implemented) Here you could try fetching each link to check accessibility
+						// TODO: check if href is accessible and count `inaccessible`
 					}
 				}
 
 			case "input":
 				for _, attr := range n.Attr {
-					if attr.Key == "type" && attr.Val == "password" {
+					if attr.Key == "type" && strings.ToLower(attr.Val) == "password" {
 						hasLogin = true
 					}
 				}
@@ -86,27 +90,31 @@ func AnalyzeURL(u *models.URL) error {
 			}
 		}
 
-		// Recurse on children
+		// Continue with sibling and child nodes
 		for c := n.FirstChild; c != nil; c = c.NextSibling {
 			f(c)
 		}
 	}
 	f(doc)
 
-	/* Populate fields on the URL struct after analysis */
+	// Step 5: Assign analysis results
 	u.HTMLVersion = detectHTMLVersion(resp.Proto)
 	u.InternalLinksCount = internal
 	u.ExternalLinksCount = external
 	u.InaccessibleLinksCount = inaccessible
 	u.HasLoginForm = hasLogin
 
-	// ✅ Assign heading counts to model fields
+	// ✅ Fixed: heading map keys now lowercase and consistent
 	u.H1 = headings["h1"]
 	u.H2 = headings["h2"]
 	u.H3 = headings["h3"]
 	u.H4 = headings["h4"]
 	u.H5 = headings["h5"]
 	u.H6 = headings["h6"]
+
+	// ✅ Optional: Print to console for debug
+	// fmt.Printf("Headings for %s → H1=%d, H2=%d, H3=%d, H4=%d, H5=%d, H6=%d\n",
+	//	u.URL, u.H1, u.H2, u.H3, u.H4, u.H5, u.H6)
 
 	return nil
 }
@@ -123,3 +131,4 @@ func detectHTMLVersion(proto string) string {
 	}
 	return "Unknown"
 }
+

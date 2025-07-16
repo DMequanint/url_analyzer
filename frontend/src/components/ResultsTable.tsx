@@ -40,10 +40,6 @@ const ResultsTable: React.FC<ResultsTableProps> = ({
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 10;
 
-  /*
-    Cleanup selection state if table data is updated
-    (e.g., filtered, removed)
-  */
   useEffect(() => {
     setSelectedIds((prev) => {
       const next = new Set<string>();
@@ -72,9 +68,6 @@ const ResultsTable: React.FC<ResultsTableProps> = ({
     error: "Error",
   };
 
-  /*
-    Filter and sort data based on global search and chosen column
-  */
   const filteredAndSortedData = useMemo(() => {
     const lowerSearch = globalSearch.trim().toLowerCase();
 
@@ -112,7 +105,7 @@ const ResultsTable: React.FC<ResultsTableProps> = ({
 
   return (
     <div className="table-wrap">
-      {/* Search input field */}
+      {/* Search input */}
       <div style={{ marginBottom: 10 }}>
         <input
           type="text"
@@ -126,7 +119,7 @@ const ResultsTable: React.FC<ResultsTableProps> = ({
         />
       </div>
 
-      {/* Bulk actions on selected rows */}
+      {/* Bulk actions */}
       {selectedArray.length > 0 && (
         <div className="bulk-actions">
           <button onClick={() => onBulkAnalyze?.(selectedArray)}>
@@ -138,11 +131,14 @@ const ResultsTable: React.FC<ResultsTableProps> = ({
         </div>
       )}
 
+      {/* Results table */}
       <table className="results-table">
         <thead>
           <tr>
             <th></th>
-            <th onClick={() => handleSort("pageTitle")}>Page Title</th>
+            <th style={{ minWidth: "300px" }} onClick={() => handleSort("pageTitle")}>
+              Page Title
+            </th>
             <th onClick={() => handleSort("htmlVersion")}>HTML Version</th>
             <th>Headings</th>
             <th onClick={() => handleSort("internalLinks")}>Internal</th>
@@ -171,7 +167,9 @@ const ResultsTable: React.FC<ResultsTableProps> = ({
                     onChange={() => toggleCheckbox(row.id)}
                   />
                 </td>
-                <td>{row.pageTitle || "(no title)"}</td>
+                <td className="page-title-cell" title={row.pageTitle}>
+                  {row.pageTitle || "(no title)"}
+                </td>
                 <td>{row.htmlVersion || "N/A"}</td>
                 <td>
                   {["h1", "h2", "h3", "h4", "h5", "h6"]
@@ -213,7 +211,7 @@ const ResultsTable: React.FC<ResultsTableProps> = ({
         </tbody>
       </table>
 
-      {/* Pagination controls */}
+      {/* Pagination */}
       <div className="pagination-controls" style={{ marginTop: 10 }}>
         <button onClick={() => setCurrentPage(1)} disabled={currentPage === 1}>
           {"<<"}

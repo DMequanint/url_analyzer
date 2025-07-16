@@ -35,14 +35,13 @@ input[type="checkbox"] {
   cursor: pointer;
 }
 
-/* ⬇️ Bulk Action Buttons Bar */
+/* Bulk Action Buttons */
 .bulk-actions {
   margin: 0.5em 0 1em 0;
   display: flex;
   gap: 1em;
 }
 
-/* Bulk action buttons: styling + colors */
 .bulk-actions button {
   border: none;
   border-radius: 4px;
@@ -53,33 +52,32 @@ input[type="checkbox"] {
   transition: background 0.2s ease;
 }
 
-/* Re-run selected — blue button */
 .bulk-actions button:first-child {
   background-color: #2563eb;
   color: white;
 }
+
 .bulk-actions button:first-child:hover {
   background-color: #1e40af;
 }
 
-/* Delete selected — red button */
 .bulk-actions button:last-child {
   background-color: #ef4444;
   color: white;
 }
+
 .bulk-actions button:last-child:hover {
   background-color: #dc2626;
 }
 
-/* ⬇️ Action buttons per row */
+/* Action column buttons per row */
 .action-buttons {
   display: flex;
-  flex-direction: row;  /* ✅ Prevent button wrapping */
+  flex-direction: row;
   flex-wrap: nowrap;
   gap: 6px;
 }
 
-/* Base button */
 .action-buttons button {
   border: none;
   border-radius: 4px;
@@ -91,29 +89,29 @@ input[type="checkbox"] {
   transition: background 0.2s ease;
 }
 
-/* Re-run / Start — primary blue */
 .action-buttons button:first-child {
   background-color: #2563eb;
   color: white;
 }
+
 .action-buttons button:first-child:hover {
   background-color: #1d4ed8;
 }
 
-/* Retry — yellow */
 .action-buttons button:nth-child(2) {
   background-color: #facc15;
   color: #111;
 }
+
 .action-buttons button:nth-child(2):hover {
   background-color: #fbbf24;
 }
 
-/* View — slate/dark gray */
 .action-buttons button:last-child {
   background-color: #334155;
   color: white;
 }
+
 .action-buttons button:last-child:hover {
   background-color: #1e293b;
 }
@@ -125,14 +123,23 @@ input[type="checkbox"] {
   outline-offset: 2px;
 }
 
-/* ⬇️ Mobile Responsiveness */
+/* Page Title cell styling */
+.page-title-cell {
+  min-width: 300px;
+  max-width: 600px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Responsive tweaks */
 @media (max-width: 768px) {
   .results-table,
-  thead,
-  tbody,
-  th,
-  td,
-  tr {
+  .results-table thead,
+  .results-table tbody,
+  .results-table th,
+  .results-table td,
+  .results-table tr {
     display: block;
   }
 
@@ -166,13 +173,20 @@ input[type="checkbox"] {
   }
 
   .action-buttons {
-    flex-wrap: wrap; /* Allow buttons to stack on mobile */
+    flex-wrap: wrap;
   }
 
   .action-buttons button {
     width: 100%;
     margin-bottom: 0.4em;
     text-align: center;
+  }
+
+  /* Page title flexibility on mobile */
+  .page-title-cell {
+    white-space: normal;
+    word-break: break-word;
+    max-width: 100%;
   }
 }
 
