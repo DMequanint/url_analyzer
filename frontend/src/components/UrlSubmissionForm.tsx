@@ -85,8 +85,7 @@ const UrlSubmissionForm: React.FC<UrlSubmissionFormProps> = ({
           Website URL
         </label>
         <div className="url-input-wrapper">
-          {/* Optional: replace icon with accessible text or SVG */}
-          <span className="url-input-icon">🔗</span>
+          
           <input
             id="url-input"
             className="url-input"

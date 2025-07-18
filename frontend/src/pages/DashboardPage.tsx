@@ -89,7 +89,7 @@ const DashboardPage: React.FC = () => {
 
   return (
     <div className="dashboard-container">
-      <h1 className="dashboard-title">🔎 URL Analyzer Dashboard</h1>
+      <h1 className="dashboard-title">URL Analyzer Dashboard</h1>
       <UrlSubmissionForm
         onSubmit={handleSubmitUrl}
         existingUrls={urls.map((u) => u.normalized_url)}
